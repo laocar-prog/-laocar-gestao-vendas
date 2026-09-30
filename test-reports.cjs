@@ -1,0 +1,16 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const tables={vehicles:[{id:'v1',store_id:'shop',status:'available',sale_price:'0.10',plate:'A',make:'X',model:'Y'},{id:'v2',store_id:'shop',status:'reserved',sale_price:'0.20'},{id:'v3',store_id:'shop',status:'sold',sale_price:'9.99'}],sold_vehicle_inventory:[{id:'v3',status:'sold',sale_price:'9.99'}],customers:[{id:'c1',full_name:'Cliente'}],document_parties:[{id:'s1',name:'Vendedor <A>',kind:'seller'},{id:'s2',name:'Vendedor B',kind:'seller'}],sales:[{id:'1',sale_date:'2026-09-01',status:'completed',sale_price:'100.10',purchase_cost:'50.01',document_party_id:'s1',vehicle_id:'v1',customer_id:'c1'},{id:'2',sale_date:'2026-09-30',status:'completed',sale_price:'200.20',purchase_cost:null,document_party_id:'s2'},{id:'3',sale_date:'2026-09-30',status:'draft',sale_price:'30.30',document_party_id:'s1'},{id:'4',sale_date:'2026-09-30',status:'cancelled',sale_price:'40.40'},{id:'5',sale_date:'2026-10-01',status:'completed',sale_price:'999.99',purchase_cost:0}]};
+const F={from:t=>({select:()=>({eq:()=>({order:()=>({range:async(a,b)=>({data:(tables[t]||[]).slice(a,b+1)})})})})})};
+const ctx={F,console,Intl,Date,Map,Number,String,Error};vm.createContext(ctx);vm.runInContext(fs.readFileSync(require('path').join(__dirname,'reports.js'),'utf8'),ctx);
+function win(){return {html:'',document:{write(h){this.owner.html=h},close(){},owner:null},focus(){}}}function output(){const w=win();w.document.owner=w;return w}
+(async()=>{
+ let w=output();await ctx.laocarReport('shop','estoque',w);assert(w.html.includes('0,30'));assert(!w.html.includes('9,99'));assert(w.html.includes('<tfoot>'));
+ w=output();await ctx.laocarReport('shop','vendidos',w);assert(w.html.includes('9,99'));assert(!w.html.includes('0,30'));
+ w=output();await ctx.laocarReport('shop','faturamento',w,{month:'2026-09'});assert(w.html.includes('300,30'));assert(!w.html.includes('999,99'));assert(!w.html.includes('30,30'));assert(w.html.includes('50,01 (parcial)'));assert(w.html.includes('Não apurado'));assert(w.html.includes('Vendedor &lt;A&gt;'));
+ w=output();await ctx.laocarReport('shop','vendas-vendedor',w,{month:'2026-09',sellerId:'s1'});assert(w.html.includes('130,40'));assert(!w.html.includes('Vendedor B'));assert(w.html.includes('100,10'));assert(w.html.includes('30,30'));
+ w=output();await ctx.laocarReport('shop','vendas-vendedor',w,{month:'2026-09'});assert(w.html.includes('Sem vendedor vinculado'));assert(w.html.includes('371,00'));assert((w.html.match(/<tfoot>/g)||[]).length===4);
+ w=output();await ctx.laocarReport('shop','faturamento',w,{month:'2026-08'});assert(w.html.includes('0 venda(s)'));assert(w.html.includes('0,00'));
+ assert.equal(ctx.laocarPeriod('2028-02').end,'2028-02-29');assert.equal(ctx.laocarPeriod('2026-12').end,'2026-12-31');assert.throws(()=>ctx.laocarPeriod('2026-13'));
+ const previous=tables.vehicles;tables.vehicles=Array.from({length:2501},(_,i)=>({id:String(i),status:'available',sale_price:'0.01'}));w=output();await ctx.laocarReport('shop','estoque',w);assert(w.html.includes('2501 veículo(s)'));assert(w.html.includes('25,01'));tables.vehicles=previous;
+ console.log('PASS: totais, status, centavos, vendedor, agrupamento, mês vazio, limites de mês, custos ausentes, escaping e paginação de 2501 registros');
+})().catch(e=>{console.error(e);process.exit(1)});

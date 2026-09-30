@@ -1,3 +1,3 @@
 [build]
-  command = "mkdir -p dist && cp index.html index-laocar-v84.js index-laocar-v55.css _headers _redirects manifest.webmanifest icon-192.svg icon-512.svg sw.js dist/"
+  command = "mkdir -p dist && cp index.html index-laocar-v85.js index-laocar-v55.css _headers _redirects manifest.webmanifest icon-192.svg icon-512.svg sw.js dist/"
   publish = "dist"
