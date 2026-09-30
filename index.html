@@ -1,1 +1,14 @@
-<div id="root"></div><script type="module" src="/src/main.jsx"></script>
+<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#111827"/><link rel="manifest" href="/manifest.webmanifest"/><link rel="icon" href="/icon-192.svg"/><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/><meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Expires" content="0"/><title>Laocar | Gestão de Vendas</title><script>
+(function(){
+  function showError(msg){
+    var r=document.getElementById('root'); if(!r) return;
+    r.innerHTML='<div style="min-height:100vh;display:grid;place-items:center;background:#101722;font-family:Arial,sans-serif;padding:24px;box-sizing:border-box"><div style="width:min(520px,92vw);background:white;border-radius:18px;padding:28px;box-shadow:0 20px 60px #0005"><div style="font-size:26px;font-weight:800;color:#101722">LAOCAR</div><p style="color:#596273">O aplicativo encontrou um erro ao iniciar.</p><pre style="white-space:pre-wrap;word-break:break-word;background:#f3f4f6;padding:12px;border-radius:8px;font-size:12px">'+String(msg).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})+'</pre><button onclick="location.reload()" style="padding:12px 18px;border:0;border-radius:9px;background:#101722;color:white;font-weight:700">Tentar novamente</button></div></div>';
+  }
+  window.addEventListener('error',function(e){showError(e.message||'Erro de JavaScript');});
+  window.addEventListener('unhandledrejection',function(e){showError((e.reason&&e.reason.message)||e.reason||'Erro ao iniciar');});
+  if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}).catch(function(){});}
+  if(window.caches){caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}).catch(function(){});}
+})();
+</script>  <script type="module" crossorigin src="/index-laocar-v84.js"></script>
+  <link rel="stylesheet" crossorigin href="/index-laocar-v55.css">
+</head><body><div id="root"><div style="min-height:100vh;display:grid;place-items:center;background:#101722;font-family:Arial,sans-serif"><div style="color:white;text-align:center"><div style="font-size:28px;font-weight:800">LAOCAR</div><div style="margin-top:10px;opacity:.75">Carregando Gestão de Vendas…</div></div></div></div><div style="position:fixed;bottom:4px;right:8px;font:10px Arial;color:#9ca3af;z-index:1">v84 cadastro de outorgados</div></body></html>
