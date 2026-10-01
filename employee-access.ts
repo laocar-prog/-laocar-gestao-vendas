@@ -23,6 +23,21 @@ Deno.serve(async req=>{
    if(pe)throw pe;
    return reply({members:(members||[]).map(m=>({...m,...profiles?.find(p=>p.id===m.user_id)}))});
   }
+  if(body.action==='update'||body.action==='remove'){
+   if(typeof body.user_id!=='string'||body.user_id===store.owner_user_id)return reply({error:'O proprietário não pode ser alterado ou excluído por esta opção.'},403);
+   const {data:member,error:me}=await admin.from('store_members').select('user_id,role').eq('store_id',store.id).eq('user_id',body.user_id).single();
+   if(me||!member||member.role!=='seller')return reply({error:'Funcionário não encontrado nesta loja.'},404);
+   if(body.action==='update'){
+    const name=String(body.name||'').trim();
+    if(!name||name.length>150)return reply({error:'Informe um nome válido.'},400);
+    const {data:updated,error}=await admin.from('profiles').update({full_name:name}).eq('id',member.user_id).select('id').single();
+    if(error||!updated)throw error||Error('Perfil ausente');
+    return reply({message:'Funcionário atualizado.'});
+   }
+   const {data:removed,error}=await admin.from('store_members').delete().eq('store_id',store.id).eq('user_id',member.user_id).eq('role','seller').select('user_id').single();
+   if(error||!removed)throw error||Error('Vínculo ausente');
+   return reply({message:'Funcionário excluído da loja. O histórico de vendas foi preservado.'});
+  }
   if(body.action!=='invite')return reply({error:'Ação inválida.'},400);
   const email=String(body.email||'').trim().toLowerCase(),name=String(body.name||'').trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254||!name||name.length>150)return reply({error:'Informe nome e e-mail válidos.'},400);
