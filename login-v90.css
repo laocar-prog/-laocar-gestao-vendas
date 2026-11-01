@@ -1,0 +1,44 @@
+/* Login follows the approved Laocar reference. Scoped to preserve workspace screens. */
+.login{min-height:100vh;min-height:100svh;background:#07101f;padding:32px 20px;display:grid;place-items:center;color:#f8fafc}
+.login-card{width:min(640px,90vw);padding:54px;background:transparent;border:1px solid #28364a;border-radius:28px;box-shadow:none}
+.login-logo{display:block;width:100%;height:auto;border-radius:20px}
+.login-card>p{font-size:26px;color:#b7c5d7;margin:20px 0 28px;line-height:1.35}
+.login-card h2{font-size:28px;line-height:1.25;margin:0 0 40px;color:#fff}
+.login-card form{display:grid;gap:18px;margin:0}
+.login-card input{width:100%;min-width:0;height:72px;padding:20px 22px;border:1px solid #d8dee7;border-radius:15px;background:#fff;color:#18202b;font:18px Arial,sans-serif}
+.login-card input::placeholder{color:#a5a5a5;opacity:1}
+.login-card button{height:68px;padding:16px 20px;border-radius:15px;font:18px Arial,sans-serif;background:#172434;color:#fff}
+.login-card button.primary{background:#00c9c5;color:#03131e;font-weight:700}
+.login-card>button{margin-top:18px;width:100%}
+.login-card button:disabled{opacity:.65;cursor:wait}
+.login-card :is(input,button):focus-visible{outline:3px solid #5eead4;outline-offset:4px}
+.login-card .notice{color:#dbeafe;background:#172434;line-height:1.5}
+.login-card .muted{font-size:14px;color:#b7c5d7;margin-bottom:0}
+@media(max-width:500px){.login{padding:24px 20px}.login-card{width:100%;padding:30px;border-radius:20px}.login-logo{border-radius:12px}.login-card>p{font-size:16px;margin:12px 0 18px}.login-card h2{font-size:20px;margin-bottom:24px}.login-card form{gap:12px}.login-card input{height:48px;padding:12px 14px;font-size:16px;border-radius:10px}.login-card button{height:46px;font-size:14px;border-radius:10px}.login-card>button{margin-top:12px}}
+
+/* Approved internal dashboard appearance. */
+.app{background:#f5f7fa;color:#18202b}
+.app aside{width:240px;flex:0 0 240px;background:#07101f;padding:22px 20px;gap:8px}
+.sidebar-logo{display:block;width:100%;height:132px;object-fit:contain;background:#050d1b;border-radius:16px}
+.app aside small{font-size:16px;color:#b7c5d7;margin:4px 0 28px}
+.app .nav{color:#c5cdd8;padding:16px 18px;border-radius:12px;font-size:18px;line-height:1.3}
+.app .nav:hover,.app .nav.active{background:#143c43;color:#77f5ed}
+.app main{min-width:0;padding:24px 42px;max-width:1500px}
+.app header{align-items:flex-start;margin-bottom:32px;gap:24px}
+.app h1{font-size:34px;line-height:1.2;margin:0 0 8px}
+.app header span{font-size:16px;color:#748094}
+.app .store-selector{font-size:16px;gap:8px;min-width:260px}
+.app .store-selector select{padding:13px;border:1px solid #d1d5db;border-radius:10px;font:14px Arial,sans-serif;height:46px;color:#18202b}
+.app .active-store{font-size:24px;line-height:1.35;color:#4b5563;font-weight:700;margin:0 0 24px}
+.app .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.app .card{padding:24px;border:1px solid #e5eaf0;border-radius:18px;box-shadow:0 3px 14px #17233405}
+.app .cards .card{min-height:124px}
+.app .card span{font-size:16px;color:#758196}
+.app .card strong{font-size:32px;line-height:1.3;margin-top:14px;overflow-wrap:anywhere}
+.app .panel{border:1px solid #e5eaf0;border-radius:18px;padding:28px;margin-top:28px;box-shadow:0 3px 14px #17233405}
+.app .primary{background:#00c9c5;color:#03131e;font-weight:700}
+@media(max-width:1050px) and (min-width:651px){.app aside{width:210px;flex-basis:210px;padding:20px 16px}.app main{padding:24px}.app header{flex-wrap:wrap}.app .store-selector{min-width:220px}.app .card{padding:20px}.app .card strong{font-size:28px}}
+@media(max-width:650px){.app aside{width:100%;height:64px;flex-basis:auto;padding:6px;gap:4px;background:#07101f}.app .sidebar-logo,.app aside small,.app .logout{display:none}.app .nav{padding:12px 14px;font-size:15px;border-radius:10px}.app main{padding:22px 16px 90px}.app h1{font-size:28px}.app header{gap:18px;margin-bottom:22px}.app .store-selector{min-width:0;width:100%}.app .active-store{font-size:20px;margin-bottom:20px}.app .cards{gap:12px}.app .cards .card{min-height:114px;padding:16px}.app .card span{font-size:13px}.app .card strong{font-size:clamp(19px,5vw,28px);margin-top:12px}.app .panel{padding:20px;margin-top:20px}}
+
+.app>aside>.laocar-brand{height:132px;margin-bottom:0}
+.login-card>.laocar-brand{height:auto;aspect-ratio:523/169;background-size:100% auto}
