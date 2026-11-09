@@ -24,3 +24,19 @@
 .modal-back .modal{max-height:calc(100vh - 36px);max-height:calc(100dvh - 36px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 @media(max-width:650px){.modal-back{padding:12px;align-items:start}.modal-back .modal{max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px)}.customer-modal{width:100%}}
 .store-selector{display:flex;flex-direction:column;gap:5px;min-width:210px;font-size:13px}.store-selector select{max-width:360px;width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;background:white;color:#111827}.active-store{font-weight:600;color:#4b5563;margin:4px 0 16px}.store-form{display:grid;gap:14px;max-width:540px}.store-form label{display:grid;gap:7px}.store-form input{width:100%;box-sizing:border-box}.store-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 0;border-bottom:1px solid #e5e7eb;margin-bottom:16px}.login-card>button{width:100%;margin-top:12px}.login-card .muted{font-size:13px;line-height:1.5}.login-card h2{font-size:18px}header{gap:18px;flex-wrap:wrap}@media(max-width:600px){.store-selector{min-width:0;width:100%}.store-selector select{max-width:100%}.store-row{align-items:flex-start;flex-direction:column}}
+
+
+:is(.customer-form input[type="file"][accept*="application/pdf"], .vehicle-form .crv-box input[type="file"])::file-selector-button {
+  background-color: #b93412;
+  color: #fff;
+  border-color: transparent;
+}
+@media (prefers-reduced-motion: no-preference) {
+  :is(.customer-form input[type="file"][accept*="application/pdf"], .vehicle-form .crv-box input[type="file"]):not(:disabled)::file-selector-button {
+    animation: laocar-document-button-pulse 2.4s ease-in-out infinite alternate;
+  }
+}
+@keyframes laocar-document-button-pulse {
+  from { background-color: #b93412; }
+  to { background-color: #d13f16; }
+}
